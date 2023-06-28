@@ -129,17 +129,20 @@ function displayTodolist(index) {
 		body.removeChild(body.lastChild);
 	}
 	body.appendChild(todolistDisplay);
-
-	//  addPoint() for each point in the array if there are any
+	addExistingPoints(index);
 	const addPointButton = document.querySelector("#addPointButton");
 	addPointButton.addEventListener("click", () => {
 		pointPrompt(index);
 	});
-
 	//TODO: title and points are editable on click:
 	//    saves changes to the object properties
 	//    when name changed, changes the name on the sidebar
 	//    updateLocalStorage()
+}
+function addExistingPoints(todolistIndex) {
+	for (let i = 0; i < todolistsArray[todolistIndex].points.length; i++) {
+		addPoint(todolistsArray[todolistIndex].points[i].name, todolistIndex);
+	}
 }
 function pointPrompt(todolistIndex) {
 	let modalBox = displayModal();
