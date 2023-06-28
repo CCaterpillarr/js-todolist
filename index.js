@@ -29,27 +29,32 @@ console.log(todolistsArray[0].points[0].textContent);
 
 const addTodolistButton = document.querySelector("#addButton");
 addTodolistButton.addEventListener("click", () => {
-	let promptBox = displayPromptBox();
+	let modalBox = displayModal();
 	//  append the ask for the name of the todolist in box
 	//  append cancel button in box
-	//    cancel eventListener - removePromptBox()
+	//    cancel eventListener - removeModal()
 	//  append add button in box
 	//    add button eventListener:
 	//      createTodolist();
 	//      updateLocalStorage();
-	//      removePromptBox();
+	//      removeModal();
 	//      displayNote();
 });
 
-function displayPromptBox() {
+function displayModal() {
 	let grayBg = document.createElement("div");
-	grayBg.setAttribute("id", "grayBg");
+	grayBg.classList.toggle("grayBg");
 	document.body.append(grayBg);
-	const promptBox = document.createElement("div");
-	promptBox.setAttribute("id", "modalBox");
-	grayBg.appendChild(promptBox);
-	grayBg.addEventListener("click", removePromptBox);
-	return promptBox;
+	const modalBox = document.createElement("div");
+	modalBox.classList.toggle("modalBox");
+	grayBg.appendChild(modalBox);
+	grayBg.addEventListener("click", removeModal);
+	document.addEventListener("keydown", (e) => {
+		if (e.key === "Escape") {
+			removeModal(e);
+		}
+	});
+	return modalBox;
 	/*add to CSS:
 #grayBg {
 	background-color: rgba(0, 0, 0, 0.281);
@@ -67,10 +72,9 @@ function displayPromptBox() {
 }
 */
 }
-
-function removePromptBox(evt) {
-	grayBg = document.querySelector("#grayBg");
-	if (evt.target === grayBg) {
+function removeModal(e) {
+	grayBg = document.querySelector(".grayBg");
+	if (e.target === grayBg || e.key === "Escape") {
 		document.body.removeChild(grayBg);
 	}
 }
@@ -107,10 +111,10 @@ function updateLocalStorage() {
 //    updateLocalStorage()
 
 //pointPrompt():
-//  let box = displayPromptBox();
+//  let box = displayModal();
 //  append the ask for the name of the point in box
 //  append cancel button in box
-//    cancel eventListener - removePromptBox()
+//    cancel eventListener - removeModal()
 //  append add button in box
 //    add button eventlistener - addPoint()
 

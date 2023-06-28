@@ -140,7 +140,7 @@ header {
 
 /* JS modals */
 
-#grayBg {
+.grayBg {
 	background-color: rgba(0, 0, 0, 0.281);
 	position: fixed;
 	inset: 0;
@@ -149,7 +149,7 @@ header {
 	align-items: center;
 	justify-content: center;
 }
-#modalBox {
+.modalBox {
 	background-color: white;
 	border-radius: 20px;
 	padding: 50px;
