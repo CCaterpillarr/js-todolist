@@ -16,13 +16,6 @@ Point.prototype.crossOut = function () {
 	//  changes the isCrossedOut property of the object to true
 	//  updateLocalStorage
 };
-//Site loads:
-if (localStorage.getItem("todolistsArray") !== null) {
-	todolistsArray = JSON.parse(localStorage.getItem("todolistsArray"));
-	//    addNameSidebar() for each todolist in the array
-}
-/* local storage test */
-console.log(todolistsArray);
 
 const addTodolistButton = document.querySelector("#addButton");
 addTodolistButton.addEventListener("click", () => {
@@ -44,7 +37,7 @@ addTodolistButton.addEventListener("click", () => {
 		if (enteredName !== "") {
 			createTodolist(enteredName);
 			updateLocalStorage();
-			//displayTodolist();
+			displayTodolist(todolistsArray.length - 1);
 			removeModal(e);
 		}
 	});
@@ -201,7 +194,15 @@ removeAllButton.addEventListener("click", () => {
 	cancelButton.addEventListener("click", removeModal);
 });
 
-/* 	 */
+//Site loads:
+if (localStorage.getItem("todolistsArray") !== null) {
+	todolistsArray = JSON.parse(localStorage.getItem("todolistsArray"));
+	for (let i = 0; i <= todolistsArray.length; i++) {
+		addNameSidebar(todolistsArray[i].name);
+	}
+}
+/* local storage test */
+console.log(todolistsArray);
 
 /* --- TODO --- */
 
