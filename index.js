@@ -129,14 +129,19 @@ function displayTodolist(index) {
 		body.removeChild(body.lastChild);
 	}
 	body.appendChild(todolistDisplay);
-	const tasks = document.querySelector(".tasks");
+
 	//  addPoint() for each point in the array if there are any
 	const addPointButton = document.querySelector("#addPointButton");
 	addPointButton.addEventListener("click", () => {
-		pointPrompt();
+		pointPrompt(index);
 	});
+
+	//TODO: title and points are editable on click:
+	//    saves changes to the object properties
+	//    when name changed, changes the name on the sidebar
+	//    updateLocalStorage()
 }
-function pointPrompt() {
+function pointPrompt(todolistIndex) {
 	let modalBox = displayModal();
 	modalBox.innerHTML = `
     <div>
@@ -153,41 +158,27 @@ function pointPrompt() {
 		let nameInputField = document.querySelector("#nameFromModal");
 		let enteredName = nameInputField.value;
 		if (enteredName !== "") {
-			addPoint(enteredName);
+			addPoint(enteredName, todolistIndex);
 			removeModal(e);
 		}
 	});
 	let cancelButton = document.querySelector(".cancel");
 	cancelButton.addEventListener("click", removeModal);
 }
-function addPoint() {}
-
-// ---
-
-//displayTodolist():
-
-//  draws addPoint button
-//    addPointButton.addEventListener pointPrompt();
-//...
-//  title and points are editable on click:
-//    saves changes to the object properties
-//    when name changed, changes the name on the sidebar
-//    updateLocalStorage()
-
-//pointPrompt():
-//  let box = displayModal();
-//  append the ask for the name of the point in box
-//  append cancel button in box
-//    cancel eventListener - removeModal()
-//  append add button in box
-//    add button eventlistener - addPoint()
-
-//addPoint():
-// draws the new point
-// adds event listener for crossOutPoint() to the :before box next to the point
-// runs crossOut() method for points that have isCrossedOut: true
-// saves changes to the object properties
-// updateLocalStorage
+function addPoint(enteredName, todolistIndex) {
+	let pointIndex = todolistsArray[todolistIndex].points.length;
+	todolistsArray[todolistIndex].points.push(new Point(enteredName, false, pointIndex));
+	displayPoint(todolistIndex, pointIndex);
+	updateLocalStorage();
+}
+function displayPoint(todolistIndex, pointIndex) {
+	const pointsField = document.querySelector(".tasks");
+	let point = document.createElement("p");
+	point.textContent = todolistsArray[todolistIndex].points[pointIndex].textContent;
+	pointsField.appendChild(point);
+	//TODO: adds event listener for crossOutPoint() to the :before box next to the point
+	//TODO: runs crossOut() method for points that have isCrossedOut: true
+}
 
 // ---
 
