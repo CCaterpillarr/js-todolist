@@ -22,18 +22,10 @@ if (localStorage.getItem("todolistsArray") !== null) {
 	todolistsArray = JSON.parse(localStorage.getItem("todolistsArray"));
 	//    addNameSidebar() for each todolist in the array
 }
+/* local storage test */
+console.log(todolistsArray[0].points[0].textContent);
 
 // ---
-
-/*TESTING IF WORKS WITH LOCAL STORAGE */
-/* todolistsArray[0] = new Todolist("zakupy", [], 0);
-let point1 = new Point("pierogi", false, 0);
-let point2 = new Point("rybka", false, 1);
-let point3 = new Point("jajeczko", false, 2);
-todolistsArray[0].points[0] = point1;
- */
-/* localStorage.setItem("todolistsArray", JSON.stringify(todolistsArray)); */
-console.log(todolistsArray[0].points[0].textContent);
 
 //Add button is clicked:
 //  let box = promptBox();
@@ -70,9 +62,9 @@ console.log(todolistsArray[0].points[0].textContent);
 //  Readds add button
 //  Adds eventlistener to displayTodolist()
 
-//updateLocalStorage():
-//  stringify array of todolists
-//  add to localstorage
+updateLocalStorage() {
+    localStorage.setItem("todolistsArray", JSON.stringify(todolistsArray));
+}
 
 // ---
 
