@@ -29,7 +29,7 @@ console.log(todolistsArray[0].points[0].textContent);
 
 const addTodolistButton = document.querySelector("#addButton");
 addTodolistButton.addEventListener("click", () => {
-	let box = displayPromptBox();
+	let promptBox = displayPromptBox();
 	//  append the ask for the name of the todolist in box
 	//  append cancel button in box
 	//    cancel eventListener - removePromptBox()
@@ -42,14 +42,14 @@ addTodolistButton.addEventListener("click", () => {
 });
 
 function displayPromptBox() {
-	const html = document.querySelector("html");
 	let grayBg = document.createElement("div");
 	grayBg.setAttribute("id", "grayBg");
-	html.appendChild(grayBg);
-	const modalBox = document.createElement("div");
-	modalBox.setAttribute("id", "modalBox");
-	grayBg.appendChild(modalBox);
-	return modalBox;
+	document.body.append(grayBg);
+	const promptBox = document.createElement("div");
+	promptBox.setAttribute("id", "modalBox");
+	grayBg.appendChild(promptBox);
+	grayBg.addEventListener("click", removePromptBox);
+	return promptBox;
 	/*add to CSS:
 #grayBg {
 	background-color: rgba(0, 0, 0, 0.281);
@@ -68,13 +68,12 @@ function displayPromptBox() {
 */
 }
 
-//  gray out background
-//  draw a white box
-//  event listener when gray background or escape is clicked: removePromptBox();
-//  return variable that points to the box
-
-//removePromptBox():
-//  remove the background (and thus the prompt box) ["zamkniecie modal kliknieciem poza modal"]
+function removePromptBox(evt) {
+	grayBg = document.querySelector("#grayBg");
+	if (evt.target === grayBg) {
+		document.body.removeChild(grayBg);
+	}
+}
 
 // ---
 
