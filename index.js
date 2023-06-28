@@ -229,6 +229,8 @@ console.log(todolistsArray);
 
 /* --- TODO --- */
 
+//zamiast addPointButton, miejsce na wpisanie nowego pointa tak jak Wojtek chcial, i potem przyciskiem dodanie
+
 //Trash button when you hover on the sidebar
 
 //if todolist has any points and all are crossed it shows a checkmark next to the title and the names in the sidebar
