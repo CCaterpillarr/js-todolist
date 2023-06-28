@@ -30,10 +30,16 @@ console.log(todolistsArray[0].points[0].textContent);
 const addTodolistButton = document.querySelector("#addButton");
 addTodolistButton.addEventListener("click", () => {
 	let modalBox = displayModal();
-	//  append the ask for the name of the todolist in box
-	//  append cancel button in box
+	modalBox.innerHTML = `
+    <form>
+        <input type=text id="nameFromModal" name="name" placeholder="Enter name">
+        <div id="modalButtons">
+            <button class=cancel>Cancel</button>
+            <button class=apply>Add todolist</button>
+        </div>
+    </form>
+    `;
 	//    cancel eventListener - removeModal()
-	//  append add button in box
 	//    add button eventListener:
 	//      createTodolist();
 	//      updateLocalStorage();
@@ -48,7 +54,7 @@ function displayModal() {
 	const modalBox = document.createElement("div");
 	modalBox.classList.toggle("modalBox");
 	grayBg.appendChild(modalBox);
-	grayBg.addEventListener("click", removeModal);
+	grayBg.addEventListener("mousedown", removeModal);
 	document.addEventListener("keydown", removeModal);
 	return modalBox;
 	/*add to CSS:
