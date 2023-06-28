@@ -1,22 +1,39 @@
-//Array of todolists
-//  Each todolist is an object with name, array of points and index
-//    Each point is an object with text content, isCrossedOut, crossOut() method and index
-
-//crossOut():
-//  removes the :before box from the point
-//  draws an :after line over the current point in dom
-//  grays out point and line color
-//  changes the isCrossedOut property of the object to true
-//  updateLocalStorage
-
-// ---
+let todolistsArray = [];
+function Todolist(name, points, index) {
+	this.name = name;
+	this.points = points;
+	this.index = index;
+}
+function Point(textContent, isCrossedOut, index) {
+	this.textContent = textContent;
+	this.isCrossedOut = isCrossedOut;
+	this.index = index;
+}
+Point.prototype.crossOut = function () {
+	//  removes the :before box from the point
+	//  draws an :after line over the current point in dom
+	//  grays out point and line color
+	//  changes the isCrossedOut property of the object to true
+	//  updateLocalStorage
+};
 
 //Site loads:
-//  if string with the array in local storage !== "":
-//    load it and replace the array of todolists with it
-//    addNameSidebar() for each todolist in the array
+if (localStorage.getItem("todolistsArray") !== null) {
+	todolistsArray = JSON.parse(localStorage.getItem("todolistsArray"));
+	//    addNameSidebar() for each todolist in the array
+}
 
 // ---
+
+/*TESTING IF WORKS WITH LOCAL STORAGE */
+/* todolistsArray[0] = new Todolist("zakupy", [], 0);
+let point1 = new Point("pierogi", false, 0);
+let point2 = new Point("rybka", false, 1);
+let point3 = new Point("jajeczko", false, 2);
+todolistsArray[0].points[0] = point1;
+ */
+/* localStorage.setItem("todolistsArray", JSON.stringify(todolistsArray)); */
+console.log(todolistsArray[0].points[0].textContent);
 
 //Add button is clicked:
 //  let box = promptBox();
@@ -37,7 +54,7 @@
 //  return variable that points to the box
 
 //removePromptBox():
-//  remove the background (and thus the prompt box)
+//  remove the background (and thus the prompt box) ["zamkniecie modal kliknieciem poza modal"]
 
 // ---
 
@@ -99,10 +116,10 @@
 // ---
 
 //Delete all todolists button is clicked:
-//  writes "" to the string in local storage
+//  localStorage.removeItem("todolistsArray");
 //  Refreshes the page
 
-/* TODO ---------------------- */
+/* --- TODO --- */
 
 //Trash button when you hover on the sidebar
 
