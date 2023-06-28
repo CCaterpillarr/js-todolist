@@ -49,11 +49,7 @@ function displayModal() {
 	modalBox.classList.toggle("modalBox");
 	grayBg.appendChild(modalBox);
 	grayBg.addEventListener("click", removeModal);
-	document.addEventListener("keydown", (e) => {
-		if (e.key === "Escape") {
-			removeModal(e);
-		}
-	});
+	document.addEventListener("keydown", removeModal);
 	return modalBox;
 	/*add to CSS:
 #grayBg {
@@ -76,6 +72,7 @@ function removeModal(e) {
 	grayBg = document.querySelector(".grayBg");
 	if (e.target === grayBg || e.key === "Escape") {
 		document.body.removeChild(grayBg);
+		document.removeEventListener("keydown", removeModal);
 	}
 }
 
