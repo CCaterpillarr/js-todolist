@@ -16,16 +16,13 @@ Point.prototype.crossOut = function () {
 	//  changes the isCrossedOut property of the object to true
 	//  updateLocalStorage
 };
-
 //Site loads:
 if (localStorage.getItem("todolistsArray") !== null) {
 	todolistsArray = JSON.parse(localStorage.getItem("todolistsArray"));
 	//    addNameSidebar() for each todolist in the array
 }
 /* local storage test */
-console.log(todolistsArray[0].points[0].textContent);
-
-// ---
+console.log(todolistsArray);
 
 const addTodolistButton = document.querySelector("#addButton");
 addTodolistButton.addEventListener("click", () => {
@@ -42,13 +39,14 @@ addTodolistButton.addEventListener("click", () => {
 	let confirmButton = document.querySelector(".confirm");
 	confirmButton.addEventListener("click", (e) => {
 		e.preventDefault();
-		let enteredName = document.querySelector("#nameFromModal");
-		/* 		if (enteredName.value !== "") {
-			//createTodolist();
-			//updateLocalStorage();
-			//displayNote();
+		let nameInputField = document.querySelector("#nameFromModal");
+		let enteredName = nameInputField.value;
+		if (enteredName !== "") {
+			createTodolist(enteredName);
+			updateLocalStorage();
+			//displayTodolist();
 			removeModal(e);
-		} */
+		}
 	});
 	let cancelButton = document.querySelector(".cancel");
 	cancelButton.addEventListener("click", removeModal);
@@ -98,13 +96,12 @@ function removeModal(e, type) {
 	}
 }
 
-// ---
-
-//createTodolist():
-//  Adds todolist object to the array
-//  Adds name to the todolist object
-//  addIndex();
-//  addNameSidebar();
+function createTodolist(enteredName) {
+	console.log(todolistsArray.length);
+	todolistsArray.push(new Todolist(enteredName, [], todolistsArray.length));
+	console.log(todolistsArray.length);
+	//  addNameSidebar();
+}
 
 //addNameSidebar():
 //  Removes add button
