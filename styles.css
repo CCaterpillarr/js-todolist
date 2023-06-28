@@ -110,7 +110,7 @@ header {
 
 /* todolist display */
 
-.todolist {
+#todolist {
 	max-width: var(--content-width);
 	min-height: 815px;
 	margin: 130px auto 0 auto;

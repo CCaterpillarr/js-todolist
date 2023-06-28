@@ -119,7 +119,22 @@ function addNameSidebar(name) {
 	});
 }
 function displayTodolist(index) {
-	/* const body = document.querySelector("Body"); */
+	const body = document.querySelector("Body");
+	const todolistDisplay = document.createElement("div");
+	todolistDisplay.setAttribute("id", "todolist");
+	todolistDisplay.innerHTML = `
+        <h2 class="title">${todolistsArray[index].name}</h2>
+        <div class="tasks">
+        </div>
+        <button id="addPointButton">+</button>
+    `;
+	if (body.lastChild.id === "todolist") {
+		body.removeChild(body.lastChild);
+	}
+	body.appendChild(todolistDisplay);
+	const tasks = document.querySelector(".tasks");
+	const addPointButton = document.querySelector("#addPointButton");
+	addPointButton.addEventListener("click", () => []);
 }
 
 function updateLocalStorage() {
@@ -129,8 +144,6 @@ function updateLocalStorage() {
 // ---
 
 //displayTodolist():
-//  removes todolist display if it's currently displayed
-//  draws title from title property
 //  addPoint() for each point in the array if there are any
 //  draws addPoint button
 //    addPointButton.addEventListener pointPrompt();
