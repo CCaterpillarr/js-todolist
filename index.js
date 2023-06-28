@@ -31,8 +31,8 @@ addTodolistButton.addEventListener("click", () => {
     <div>
         <input type=text id="nameFromModal" name="name" placeholder="Enter name">
         <div id="modalButtons">
-            <button class=cancel>Cancel</button>
-            <button class=confirm>Add todolist</button>
+            <button class="cancel">Cancel</button>
+            <button class="confirm">Add todolist</button>
         </div>
     </div>
     `;
@@ -100,14 +100,27 @@ function createTodolist(enteredName) {
 	console.log(todolistsArray.length);
 	todolistsArray.push(new Todolist(enteredName, [], todolistsArray.length));
 	console.log(todolistsArray.length);
-	//  addNameSidebar();
+	addNameSidebar(enteredName);
 }
 
-//addNameSidebar():
-//  Removes add button
-//  Appends the note at the end
-//  Readds add button
-//  Adds eventlistener to displayTodolist()
+function addNameSidebar(name) {
+	const sidebar = document.querySelector("#sidebar");
+	sidebar.removeChild(addTodolistButton);
+	const sideName = document.createElement("p");
+	sideName.textContent = name;
+	sidebar.appendChild(sideName);
+	sidebar.appendChild(addTodolistButton);
+	sideName.addEventListener("click", () => {
+		for (let i = 0; i < todolistsArray.length; i++) {
+			if (todolistsArray[i].name === name) {
+				displayTodolist(i);
+			}
+		}
+	});
+}
+function displayTodolist(index) {
+	/* const body = document.querySelector("Body"); */
+}
 
 function updateLocalStorage() {
 	localStorage.setItem("todolistsArray", JSON.stringify(todolistsArray));
@@ -154,9 +167,28 @@ function updateLocalStorage() {
 
 // ---
 
-//Delete all todolists button is clicked:
-//  localStorage.removeItem("todolistsArray");
-//  Refreshes the page
+const removeAllButton = document.querySelector("#removeAllButton");
+removeAllButton.addEventListener("click", () => {
+	let modalBox = displayModal();
+	modalBox.innerHTML = `
+    <div>
+        <h3 id="areYouSure">Are you sure?</h3>
+        <div id="modalButtons">
+            <button class="cancel">Cancel</button>
+            <button class="confirm">Delete all</button>
+        </div>
+    </div>
+    `;
+	let confirmButton = document.querySelector(".confirm");
+	confirmButton.addEventListener("click", () => {
+		localStorage.removeItem("todolistsArray");
+		location.reload(true);
+	});
+	let cancelButton = document.querySelector(".cancel");
+	cancelButton.addEventListener("click", removeModal);
+});
+
+/* 	 */
 
 /* --- TODO --- */
 
