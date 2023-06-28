@@ -31,20 +31,27 @@ const addTodolistButton = document.querySelector("#addButton");
 addTodolistButton.addEventListener("click", () => {
 	let modalBox = displayModal();
 	modalBox.innerHTML = `
-    <form>
+    <div>
         <input type=text id="nameFromModal" name="name" placeholder="Enter name">
         <div id="modalButtons">
             <button class=cancel>Cancel</button>
-            <button class=apply>Add todolist</button>
+            <button class=confirm>Add todolist</button>
         </div>
-    </form>
+    </div>
     `;
-	//    cancel eventListener - removeModal()
-	//    add button eventListener:
-	//      createTodolist();
-	//      updateLocalStorage();
-	//      removeModal();
-	//      displayNote();
+	let confirmButton = document.querySelector(".confirm");
+	confirmButton.addEventListener("click", (e) => {
+		e.preventDefault();
+		let enteredName = document.querySelector("#nameFromModal");
+		/* 		if (enteredName.value !== "") {
+			//createTodolist();
+			//updateLocalStorage();
+			//displayNote();
+			removeModal(e);
+		} */
+	});
+	let cancelButton = document.querySelector(".cancel");
+	cancelButton.addEventListener("click", removeModal);
 });
 
 function displayModal() {
@@ -54,7 +61,9 @@ function displayModal() {
 	const modalBox = document.createElement("div");
 	modalBox.classList.toggle("modalBox");
 	grayBg.appendChild(modalBox);
-	grayBg.addEventListener("mousedown", removeModal);
+	grayBg.addEventListener("mousedown", (e) => {
+		removeModal(e, "backgroundClick");
+	});
 	document.addEventListener("keydown", removeModal);
 	return modalBox;
 	/*add to CSS:
@@ -74,9 +83,16 @@ function displayModal() {
 }
 */
 }
-function removeModal(e) {
+function removeModal(e, type) {
 	grayBg = document.querySelector(".grayBg");
-	if (e.target === grayBg || e.key === "Escape") {
+	if (
+		//if (the event listener passed e* AND key clicked AND if it wasn't escape) OR (it was a mouseclick and somewhere else than the gray background was clicked)
+		//*this check allows to call removeModal() without passing e, otherwise it errors out when checking e.key
+		(typeof e !== "undefined" && typeof e.key !== "undefined" && e.key !== "Escape") ||
+		(type === "backgroundClick" && e.target !== grayBg)
+	) {
+		return;
+	} else {
 		document.body.removeChild(grayBg);
 		document.removeEventListener("keydown", removeModal);
 	}
