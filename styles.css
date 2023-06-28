@@ -137,3 +137,20 @@ header {
 	height: 20px;
 	margin-right: 20px;
 }
+
+/* JS modals */
+
+#grayBg {
+	background-color: rgba(0, 0, 0, 0.281);
+	position: fixed;
+	inset: 0;
+	z-index: 100;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#modalBox {
+	background-color: white;
+	border-radius: 20px;
+	padding: 50px;
+}

@@ -27,19 +27,47 @@ console.log(todolistsArray[0].points[0].textContent);
 
 // ---
 
-//Add button is clicked:
-//  let box = promptBox();
-//  append the ask for the name of the todolist in box
-//  append cancel button in box
-//    cancel eventListener - removePromptBox()
-//  append add button in box
-//    add button eventListener:
-//      createTodolist();
-//      updateLocalStorage();
-//      removePromptBox();
-//      displayNote();
+const addTodolistButton = document.querySelector("#addButton");
+addTodolistButton.addEventListener("click", () => {
+	let box = displayPromptBox();
+	//  append the ask for the name of the todolist in box
+	//  append cancel button in box
+	//    cancel eventListener - removePromptBox()
+	//  append add button in box
+	//    add button eventListener:
+	//      createTodolist();
+	//      updateLocalStorage();
+	//      removePromptBox();
+	//      displayNote();
+});
 
-//promptBox():
+function displayPromptBox() {
+	const html = document.querySelector("html");
+	let grayBg = document.createElement("div");
+	grayBg.setAttribute("id", "grayBg");
+	html.appendChild(grayBg);
+	const modalBox = document.createElement("div");
+	modalBox.setAttribute("id", "modalBox");
+	grayBg.appendChild(modalBox);
+	return modalBox;
+	/*add to CSS:
+#grayBg {
+	background-color: rgba(0, 0, 0, 0.281);
+	position: fixed;
+	inset: 0;
+	z-index: 100;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#modalBox {
+	background-color: white;
+	border-radius: 20px;
+	padding: 50px;
+}
+*/
+}
+
 //  gray out background
 //  draw a white box
 //  event listener when gray background or escape is clicked: removePromptBox();
@@ -62,8 +90,8 @@ console.log(todolistsArray[0].points[0].textContent);
 //  Readds add button
 //  Adds eventlistener to displayTodolist()
 
-updateLocalStorage() {
-    localStorage.setItem("todolistsArray", JSON.stringify(todolistsArray));
+function updateLocalStorage() {
+	localStorage.setItem("todolistsArray", JSON.stringify(todolistsArray));
 }
 
 // ---
@@ -80,7 +108,7 @@ updateLocalStorage() {
 //    updateLocalStorage()
 
 //pointPrompt():
-//  let box = promptBox();
+//  let box = displayPromptBox();
 //  append the ask for the name of the point in box
 //  append cancel button in box
 //    cancel eventListener - removePromptBox()
