@@ -17,6 +17,10 @@ Point.prototype.crossOut = function () {
 	//  updateLocalStorage
 };
 
+function updateLocalStorage() {
+	localStorage.setItem("todolistsArray", JSON.stringify(todolistsArray));
+}
+
 const addTodolistButton = document.querySelector("#addButton");
 addTodolistButton.addEventListener("click", () => {
 	let modalBox = displayModal();
@@ -126,23 +130,48 @@ function displayTodolist(index) {
 	}
 	body.appendChild(todolistDisplay);
 	const tasks = document.querySelector(".tasks");
+	//  addPoint() for each point in the array if there are any
 	const addPointButton = document.querySelector("#addPointButton");
-	addPointButton.addEventListener("click", () => []);
+	addPointButton.addEventListener("click", () => {
+		pointPrompt();
+	});
 }
-
-function updateLocalStorage() {
-	localStorage.setItem("todolistsArray", JSON.stringify(todolistsArray));
+function pointPrompt() {
+	let modalBox = displayModal();
+	modalBox.innerHTML = `
+    <div>
+        <input type=text id="nameFromModal" name="name" placeholder="Enter point">
+        <div id="modalButtons">
+            <button class="cancel">Cancel</button>
+            <button class="confirm">Add point</button>
+        </div>
+    </div>
+    `;
+	let confirmButton = document.querySelector(".confirm");
+	confirmButton.addEventListener("click", (e) => {
+		e.preventDefault();
+		let nameInputField = document.querySelector("#nameFromModal");
+		let enteredName = nameInputField.value;
+		if (enteredName !== "") {
+			addPoint(enteredName);
+			removeModal(e);
+		}
+	});
+	let cancelButton = document.querySelector(".cancel");
+	cancelButton.addEventListener("click", removeModal);
 }
+function addPoint() {}
 
 // ---
 
 //displayTodolist():
-//  addPoint() for each point in the array if there are any
+
 //  draws addPoint button
 //    addPointButton.addEventListener pointPrompt();
 //...
 //  title and points are editable on click:
 //    saves changes to the object properties
+//    when name changed, changes the name on the sidebar
 //    updateLocalStorage()
 
 //pointPrompt():
@@ -197,7 +226,7 @@ removeAllButton.addEventListener("click", () => {
 //Site loads:
 if (localStorage.getItem("todolistsArray") !== null) {
 	todolistsArray = JSON.parse(localStorage.getItem("todolistsArray"));
-	for (let i = 0; i <= todolistsArray.length; i++) {
+	for (let i = 0; i < todolistsArray.length; i++) {
 		addNameSidebar(todolistsArray[i].name);
 	}
 }
