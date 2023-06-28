@@ -233,4 +233,16 @@ console.log(todolistsArray);
 
 //Trash button when you hover on the sidebar
 
+//p::before:hover - cursor na pointer i zeby pojawial sie svg okay tick
+
+//make the sidebar sligtly shorter and add an orange thang that at it's side next to te todolist that is open
+
+//add <hr>s to sidebar and todolist points
+
+//make buttons and top panel look nice
+//find some cool font
+
 //if todolist has any points and all are crossed it shows a checkmark next to the title and the names in the sidebar
+
+//settings cog that opens a settings sidebar (with an animation) on the right with the top-most z-index and grays out the rest
+//spin animation when clicked
