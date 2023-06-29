@@ -1,12 +1,12 @@
 /* global */
 
 :root {
-	--gray: #afafaf;
+	--gray: #a77951;
 	--dark-gray: #666666;
 	--light-gray: rgb(247, 247, 247);
-	--green: rgb(73, 194, 103);
-	--light-green: rgb(207, 240, 215);
-	--darker-green: rgb(144, 167, 150);
+	--logo: rgb(118, 250, 100);
+	--button-gray: rgb(212, 212, 212);
+	--button-darker: rgb(235, 235, 235);
 	--faint-shadow: rgba(0, 0, 0, 0.247);
 	--sticky: #f7e998;
 	--sticky-two: #f7ecb2;
@@ -32,14 +32,14 @@ a {
 
 button {
 	transition: var(--background-fade);
-	background-color: var(--light-green);
+	background-color: var(--button-gray);
 	padding: var(--button-padding);
 	border-radius: var(--button-corners);
 	border: 1px solid black;
 	cursor: pointer;
 }
 button:hover {
-	background-color: var(--darker-green);
+	background-color: var(--button-darker);
 }
 
 [contenteditable="true"] {
@@ -70,7 +70,7 @@ header {
 	align-items: center;
 	gap: 5px;
 	font-weight: bold;
-	color: var(--green);
+	color: var(--logo);
 	font-size: 60px;
 	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
