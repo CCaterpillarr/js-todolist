@@ -118,6 +118,8 @@ function displayTodolist(index) {
 		todolistForRemoval.remove();
 	}
 	body.appendChild(todolistDisplay);
+	const pointInputField = document.querySelector("#pointInputField");
+	pointInputField.focus();
 	let todolistTitle = document.querySelector(".title");
 	todolistTitle.contentEditable = true;
 	addExistingPoints(index);
@@ -260,9 +262,6 @@ if (localStorage.getItem("todolistsArray") !== null) {
 /* console.log(todolistsArray); */
 
 /* --- TODO --- */
-
-//add tick icon on hover
-//tick appears and fades out when you click save changes
 
 //make the edit block when you click on something to edit look nicer
 //make enter not go to new line
