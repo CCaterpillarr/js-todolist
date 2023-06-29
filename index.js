@@ -121,6 +121,7 @@ function displayTodolist(index) {
         <div class="tasks">
         </div>
         <button id="addPointButton">+</button>
+		<button id="saveChangesButton">Save changes</button>
     `;
 	if (elementExists("todolist") === true) {
 		let todolistForRemoval = document.querySelector("#todolist");
@@ -133,6 +134,10 @@ function displayTodolist(index) {
 	const addPointButton = document.querySelector("#addPointButton");
 	addPointButton.addEventListener("click", () => {
 		pointPrompt(index);
+	});
+	const saveChangesButton = document.querySelector("#saveChangesButton");
+	saveChangesButton.addEventListener("click", () => {
+		saveChanges(index);
 	});
 	//TODO: title and points are editable on click:
 	//    saves changes to the object properties
@@ -181,6 +186,7 @@ function addPoint(enteredName, todolistIndex) {
 function displayPoint(todolistIndex, pointIndex) {
 	const pointsField = document.querySelector(".tasks");
 	let point = document.createElement("p");
+	point.classList.toggle("point");
 	point.textContent = todolistsArray[todolistIndex].points[pointIndex].textContent;
 	pointsField.appendChild(point);
 	enableTextEditing(point);
@@ -191,6 +197,19 @@ function displayPoint(todolistIndex, pointIndex) {
 function enableTextEditing(element) {
 	element.contentEditable = true;
 	element.focus();
+}
+function saveChanges(todolistIndex) {
+	const name = document.querySelector(".title");
+	todolistsArray[todolistIndex].name = name.textContent;
+	const points = Array.from(document.querySelectorAll(".point"));
+	const numberOfPoints = todolistsArray[todolistIndex].points.length;
+	for (let i = 0; i < numberOfPoints; i++) {
+		todolistsArray[todolistIndex].points[i].textContent = points[i].textContent;
+	}
+	//update name on sidembar
+	console.log(todolistsArray); //temp
+	updateLocalStorage();
+	//TODO: fix bug where after changing the todolist title and saving, you can't switch back to it after you switch to another todolist
 }
 
 // ---
@@ -234,9 +253,6 @@ if (localStorage.getItem("todolistsArray") !== null) {
 		addNameSidebar(todolistsArray[i].name);
 	}
 }
-/* local storage test */
-console.log(todolistsArray);
-
 /* --- TODO --- */
 
 //zamiast addPointButton, miejsce na wpisanie nowego pointa tak jak Wojtek chcial, i potem przyciskiem dodanie
@@ -245,9 +261,16 @@ console.log(todolistsArray);
 
 //p::before:hover - cursor na pointer i zeby pojawial sie svg okay tick
 
+//okay tick appears and fades out when you click save changes
+
 //make the sidebar sligtly shorter and add an orange thang that at it's side next to te todolist that is open
 
 //add <hr>s to sidebar and todolist points
+
+//prompt to save changes when switching todolists display
+//and when refreshing page
+
+//combine saveChanges() and updateLocalStorage() and make new todolists&points be added to todolistsArray via saveChanges()
 
 //make buttons and top panel look nice
 //find some cool font

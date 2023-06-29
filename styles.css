@@ -116,6 +116,7 @@ header {
 	margin: 130px auto 0 auto;
 	background-color: var(--sticky);
 	box-shadow: 5px 5px 5px var(--faint-shadow);
+	position: relative;
 }
 .title {
 	background-color: var(--sticky-two);
@@ -138,6 +139,12 @@ header {
 	width: 20px;
 	height: 20px;
 	margin-right: 20px;
+}
+
+#saveChangesButton {
+	position: absolute;
+	bottom: 0;
+	right: 0;
 }
 
 /* JS modals */
