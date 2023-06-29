@@ -94,19 +94,21 @@ function removeModal(e, type) {
 }
 function createTodolist(enteredName) {
 	todolistsArray.push(new Todolist(enteredName, [], todolistsArray.length));
-	addNameSidebar(enteredName);
+	addNameSidebar(enteredName, todolistsArray.length - 1); //needs to be -1 because after adding that todolist the array length is +1
 }
 
-function addNameSidebar(name) {
+function addNameSidebar(todolistName, todolistIndex) {
 	const sidebar = document.querySelector("#sidebar");
 	sidebar.removeChild(addTodolistButton);
 	const sideName = document.createElement("p");
-	sideName.textContent = name;
+	sideName.textContent = todolistName;
+	sideName.setAttribute("id", `index${todolistIndex}`);
+	console.log(sideName.id);
 	sidebar.appendChild(sideName);
 	sidebar.appendChild(addTodolistButton);
 	sideName.addEventListener("click", () => {
 		for (let i = 0; i < todolistsArray.length; i++) {
-			if (todolistsArray[i].name === name) {
+			if (todolistsArray[i].name === todolistName) {
 				displayTodolist(i);
 			}
 		}
@@ -199,15 +201,15 @@ function enableTextEditing(element) {
 	element.focus();
 }
 function saveChanges(todolistIndex) {
-	const name = document.querySelector(".title");
-	todolistsArray[todolistIndex].name = name.textContent;
+	const name = document.querySelector(".title").textContent;
+	todolistsArray[todolistIndex].name = name;
 	const points = Array.from(document.querySelectorAll(".point"));
 	const numberOfPoints = todolistsArray[todolistIndex].points.length;
 	for (let i = 0; i < numberOfPoints; i++) {
 		todolistsArray[todolistIndex].points[i].textContent = points[i].textContent;
 	}
-	//update name on sidembar
-	console.log(todolistsArray); //temp
+	let nameOnSidebar = document.querySelector(`#index${todolistIndex}`);
+	nameOnSidebar.textContent = name;
 	updateLocalStorage();
 	//TODO: fix bug where after changing the todolist title and saving, you can't switch back to it after you switch to another todolist
 }
@@ -250,9 +252,11 @@ removeAllButton.addEventListener("click", () => {
 if (localStorage.getItem("todolistsArray") !== null) {
 	todolistsArray = JSON.parse(localStorage.getItem("todolistsArray"));
 	for (let i = 0; i < todolistsArray.length; i++) {
-		addNameSidebar(todolistsArray[i].name);
+		addNameSidebar(todolistsArray[i].name, todolistsArray[i].index);
 	}
 }
+
+/* console.log(todolistsArray); */
 /* --- TODO --- */
 
 //zamiast addPointButton, miejsce na wpisanie nowego pointa tak jak Wojtek chcial, i potem przyciskiem dodanie
