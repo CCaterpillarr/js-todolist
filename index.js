@@ -203,7 +203,6 @@ function saveChanges(todolistIndex) {
 	let nameOnSidebar = document.querySelector(`#index${todolistIndex}`);
 	nameOnSidebar.textContent = name;
 	updateLocalStorage();
-	//TODO: fix bug where after changing the todolist title and saving, you can't switch back to it after you switch to another todolist
 }
 
 // ---
