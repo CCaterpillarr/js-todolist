@@ -127,7 +127,7 @@ function displayTodolist(index) {
 		todolistForRemoval.remove();
 	}
 	body.appendChild(todolistDisplay);
-	// addExistingPoints(index);
+	addExistingPoints(index);
 	const addPointButton = document.querySelector("#addPointButton");
 	addPointButton.addEventListener("click", () => {
 		pointPrompt(index);
@@ -141,11 +141,11 @@ function elementExists(elementId) {
 	var element = document.getElementById(elementId);
 	return element !== null;
 }
-
-/*
 function addExistingPoints(todolistIndex) {
 	for (let i = 0; i < todolistsArray[todolistIndex].points.length; i++) {
-		addPoint(todolistsArray[todolistIndex].points[i].name, todolistIndex);
+		/* 	console.log(todolistsArray[todolistIndex].points[i].index);
+		console.log(todolistIndex); */
+		displayPoint(todolistIndex, todolistsArray[todolistIndex].points[i].index);
 	}
 }
 function pointPrompt(todolistIndex) {
@@ -181,12 +181,14 @@ function addPoint(enteredName, todolistIndex) {
 function displayPoint(todolistIndex, pointIndex) {
 	const pointsField = document.querySelector(".tasks");
 	let point = document.createElement("p");
+
+	console.log(pointIndex);
+	console.log(todolistsArray[todolistIndex].points);
 	point.textContent = todolistsArray[todolistIndex].points[pointIndex].textContent;
 	pointsField.appendChild(point);
 	//TODO: adds event listener for crossOutPoint() to the :before box next to the point
 	//TODO: runs crossOut() method for points that have isCrossedOut: true
 }
-*/
 
 // ---
 
