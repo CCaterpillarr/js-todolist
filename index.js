@@ -95,7 +95,7 @@ function addNameSidebar(todolistName, todolistIndex) {
 	sidebar.removeChild(addTodolistButton);
 	const sideName = document.createElement("p");
 	sideName.textContent = todolistName;
-	sideName.setAttribute("id", `index${todolistIndex}`);
+	sideName.setAttribute("id", `todolistIndex${todolistIndex}`);
 	sidebar.appendChild(sideName);
 	sidebar.appendChild(addTodolistButton);
 	sideName.addEventListener("click", () => {
@@ -119,7 +119,7 @@ function displayTodolist(index) {
 	}
 	body.appendChild(todolistDisplay);
 	let todolistTitle = document.querySelector(".title");
-	enableTextEditing(todolistTitle);
+	todolistTitle.contentEditable = true;
 	addExistingPoints(index);
 	const addPointButton = document.querySelector("#addPointButton");
 	addPointButton.addEventListener("click", () => {
@@ -176,10 +176,11 @@ function displayPoint(todolistIndex, pointIndex) {
 	pointsField.appendChild(pointContainer);
 	let checkbox = document.createElement("div");
 	checkbox.classList.toggle("checkbox");
-	checkbox.setAttribute("id", `index${pointIndex}`);
+	checkbox.setAttribute("id", `checkboxIndex${pointIndex}`);
 	pointContainer.appendChild(checkbox);
 	let point = document.createElement("p");
 	point.classList.toggle("point");
+	point.setAttribute("id", `pointIndex${pointIndex}`);
 	point.textContent = todolistsArray[todolistIndex].points[pointIndex].textContent;
 	pointContainer.appendChild(point);
 	checkbox.addEventListener("click", () => {
@@ -187,7 +188,7 @@ function displayPoint(todolistIndex, pointIndex) {
 		checkPoint(point, checkbox, todolistIndex, pointIndex);
 		updateLocalStorage();
 	});
-	enableTextEditing(point);
+	point.contentEditable = true;
 }
 function checkPoint(point, checkbox, todolistIndex, pointIndex) {
 	if (todolistsArray[todolistIndex].points[pointIndex].isChecked === true) {
@@ -197,17 +198,11 @@ function checkPoint(point, checkbox, todolistIndex, pointIndex) {
 		let crossLine = document.createElement("div");
 		crossLine.classList.toggle("crossLine");
 		point.appendChild(crossLine);
-		//  draws an :after line over the current point in dom
-		//  disable editing
 	}
 
 	//TODO:  run this function for every point that has isChecked === true
 }
 
-function enableTextEditing(element) {
-	element.contentEditable = true;
-	element.focus();
-}
 function saveChanges(todolistIndex) {
 	const name = document.querySelector(".title").textContent;
 	todolistsArray[todolistIndex].name = name;
@@ -216,7 +211,7 @@ function saveChanges(todolistIndex) {
 	for (let i = 0; i < numberOfPoints; i++) {
 		todolistsArray[todolistIndex].points[i].textContent = points[i].textContent;
 	}
-	let nameOnSidebar = document.querySelector(`#index${todolistIndex}`);
+	let nameOnSidebar = document.querySelector(`#todolistIndex${todolistIndex}`);
 	nameOnSidebar.textContent = name;
 	updateLocalStorage();
 }
