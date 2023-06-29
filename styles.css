@@ -104,18 +104,13 @@ header {
 	margin: 18px auto 0 auto;
 }
 
-#sidebar p {
-	padding: 18px 20px;
-	font-size: 30px;
-	cursor: pointer;
-}
-
 .sideNameContainer {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	background-color: var(--dark-gray);
 	transition: var(--background-fade);
+	cursor: pointer;
 }
 .sideNameContainer:hover {
 	background-color: rgb(126, 126, 126);
@@ -125,6 +120,8 @@ header {
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
+	padding: 18px 20px;
+	font-size: 30px;
 }
 
 .trash {

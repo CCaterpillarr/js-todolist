@@ -101,7 +101,7 @@ function addNameSidebar(todolistName, todolistIndex) {
 	sidebar.appendChild(sideNameContainer);
 	sideNameContainer.append(sideName);
 	sidebar.appendChild(addTodolistButton);
-	sideName.addEventListener("click", () => {
+	sideNameContainer.addEventListener("click", () => {
 		displayTodolist(todolistIndex);
 	});
 	sideNameContainer.addEventListener("mouseover", () => {
