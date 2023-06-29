@@ -4,18 +4,11 @@ function Todolist(name, points, index) {
 	this.points = points;
 	this.index = index;
 }
-function Point(textContent, isCrossedOut, index) {
+function Point(textContent, isChecked, index) {
 	this.textContent = textContent;
-	this.isCrossedOut = isCrossedOut;
+	this.isChecked = isChecked;
 	this.index = index;
 }
-Point.prototype.crossOut = function () {
-	//  removes the :before box from the point
-	//  draws an :after line over the current point in dom
-	//  grays out point and line color
-	//  changes the isCrossedOut property of the object to true
-	//  updateLocalStorage
-};
 
 function updateLocalStorage() {
 	localStorage.setItem("todolistsArray", JSON.stringify(todolistsArray));
@@ -103,7 +96,6 @@ function addNameSidebar(todolistName, todolistIndex) {
 	const sideName = document.createElement("p");
 	sideName.textContent = todolistName;
 	sideName.setAttribute("id", `index${todolistIndex}`);
-	console.log(sideName.id);
 	sidebar.appendChild(sideName);
 	sidebar.appendChild(addTodolistButton);
 	sideName.addEventListener("click", () => {
@@ -179,13 +171,37 @@ function addPoint(enteredName, todolistIndex) {
 }
 function displayPoint(todolistIndex, pointIndex) {
 	const pointsField = document.querySelector(".tasks");
+	const pointContainer = document.createElement("div");
+	pointContainer.classList.toggle("pointContainer");
+	pointsField.appendChild(pointContainer);
+	let checkbox = document.createElement("div");
+	checkbox.classList.toggle("checkbox");
+	checkbox.setAttribute("id", `index${pointIndex}`);
+	pointContainer.appendChild(checkbox);
 	let point = document.createElement("p");
 	point.classList.toggle("point");
 	point.textContent = todolistsArray[todolistIndex].points[pointIndex].textContent;
-	pointsField.appendChild(point);
+	pointContainer.appendChild(point);
+	checkbox.addEventListener("click", () => {
+		todolistsArray[todolistIndex].points[pointIndex].isChecked = true;
+		checkPoint(point, checkbox, todolistIndex, pointIndex);
+		updateLocalStorage();
+	});
 	enableTextEditing(point);
-	//TODO: adds event listener for crossOutPoint() to the :before box next to the point
-	//TODO: runs crossOut() method for points that have isCrossedOut: true
+}
+function checkPoint(point, checkbox, todolistIndex, pointIndex) {
+	if (todolistsArray[todolistIndex].points[pointIndex].isChecked === true) {
+		point.classList.toggle("checkedPoint");
+		point.contentEditable = false;
+		checkbox.remove();
+		let crossLine = document.createElement("div");
+		crossLine.classList.toggle("crossLine");
+		point.appendChild(crossLine);
+		//  draws an :after line over the current point in dom
+		//  disable editing
+	}
+
+	//TODO:  run this function for every point that has isChecked === true
 }
 
 function enableTextEditing(element) {
@@ -254,11 +270,15 @@ if (localStorage.getItem("todolistsArray") !== null) {
 
 //Trash button when you hover on the sidebar
 
+//make the edit block when you click on something to edit look nicer
+
 //p::before:hover - cursor na pointer i zeby pojawial sie svg okay tick
 
 //okay tick appears and fades out when you click save changes
 
 //make the sidebar sligtly shorter and add an orange thang that at it's side next to te todolist that is open
+
+//disable red misspell underline
 
 //add <hr>s to sidebar and todolist points
 
