@@ -137,6 +137,9 @@ function elementExists(elementId) {
 function addExistingPoints(todolistIndex) {
 	for (let i = 0; i < todolistsArray[todolistIndex].points.length; i++) {
 		displayPoint(todolistIndex, todolistsArray[todolistIndex].points[i].index);
+		if (todolistsArray[todolistIndex].points[i].isChecked === true) {
+			checkPoint(todolistIndex, i);
+		}
 	}
 }
 function pointPrompt(todolistIndex) {
@@ -185,13 +188,16 @@ function displayPoint(todolistIndex, pointIndex) {
 	pointContainer.appendChild(point);
 	checkbox.addEventListener("click", () => {
 		todolistsArray[todolistIndex].points[pointIndex].isChecked = true;
-		checkPoint(point, checkbox, todolistIndex, pointIndex);
+		checkPoint(todolistIndex, pointIndex);
 		updateLocalStorage();
 	});
 	point.contentEditable = true;
 }
-function checkPoint(point, checkbox, todolistIndex, pointIndex) {
+function checkPoint(todolistIndex, pointIndex) {
 	if (todolistsArray[todolistIndex].points[pointIndex].isChecked === true) {
+		point = document.querySelector(`#pointIndex${pointIndex}`);
+		checkbox = document.querySelector(`#checkboxIndex${pointIndex}`);
+		console.log(point);
 		point.classList.toggle("checkedPoint");
 		point.contentEditable = false;
 		checkbox.remove();
@@ -199,8 +205,6 @@ function checkPoint(point, checkbox, todolistIndex, pointIndex) {
 		crossLine.classList.toggle("crossLine");
 		point.appendChild(crossLine);
 	}
-
-	//TODO:  run this function for every point that has isChecked === true
 }
 
 function saveChanges(todolistIndex) {
