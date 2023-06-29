@@ -92,11 +92,8 @@ function removeModal(e, type) {
 		document.removeEventListener("keydown", removeModal);
 	}
 }
-
 function createTodolist(enteredName) {
-	console.log(todolistsArray.length);
 	todolistsArray.push(new Todolist(enteredName, [], todolistsArray.length));
-	console.log(todolistsArray.length);
 	addNameSidebar(enteredName);
 }
 
@@ -125,11 +122,12 @@ function displayTodolist(index) {
         </div>
         <button id="addPointButton">+</button>
     `;
-	if (body.lastChild.id === "todolist") {
-		body.removeChild(body.lastChild);
+	if (elementExists("todolist") === true) {
+		let todolistForRemoval = document.querySelector("#todolist");
+		todolistForRemoval.remove();
 	}
 	body.appendChild(todolistDisplay);
-	addExistingPoints(index);
+	// addExistingPoints(index);
 	const addPointButton = document.querySelector("#addPointButton");
 	addPointButton.addEventListener("click", () => {
 		pointPrompt(index);
@@ -139,6 +137,12 @@ function displayTodolist(index) {
 	//    when name changed, changes the name on the sidebar
 	//    updateLocalStorage()
 }
+function elementExists(elementId) {
+	var element = document.getElementById(elementId);
+	return element !== null;
+}
+
+/*
 function addExistingPoints(todolistIndex) {
 	for (let i = 0; i < todolistsArray[todolistIndex].points.length; i++) {
 		addPoint(todolistsArray[todolistIndex].points[i].name, todolistIndex);
@@ -182,6 +186,7 @@ function displayPoint(todolistIndex, pointIndex) {
 	//TODO: adds event listener for crossOutPoint() to the :before box next to the point
 	//TODO: runs crossOut() method for points that have isCrossedOut: true
 }
+*/
 
 // ---
 
