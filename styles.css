@@ -127,7 +127,7 @@ header {
 
 .tasks {
 	font-size: 30px;
-	padding: 20px 50px;
+	padding: 20px 50px 50px 50px;
 }
 .pointContainer {
 	display: flex;
@@ -144,14 +144,16 @@ header {
 	height: 20px;
 }
 .checkbox:hover {
-	background-color: red;
+	content: url(img/check.svg);
+	cursor: pointer;
+}
+.point {
+	position: relative;
+	transition: color 0.2s ease-in;
 }
 .checkedPoint {
 	color: var(--checked);
 	margin-left: 42px;
-}
-.point {
-	position: relative;
 }
 .crossLine {
 	content: "";
@@ -164,8 +166,16 @@ header {
 
 #saveChangesButton {
 	position: absolute;
-	bottom: 0;
-	right: 0;
+	bottom: 30px;
+	right: 40px;
+}
+.tick {
+	content: url(img/check.svg);
+	opacity: 1;
+	transition: opacity 0.5s ease-in-out;
+	position: absolute;
+	right: 210px;
+	bottom: 30px;
 }
 
 /* JS modals */

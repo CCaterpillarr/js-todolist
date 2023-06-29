@@ -201,6 +201,18 @@ function saveChanges(todolistIndex) {
 	let nameOnSidebar = document.querySelector(`#todolistIndex${todolistIndex}`);
 	nameOnSidebar.textContent = name;
 	updateLocalStorage();
+	showTick();
+}
+
+function showTick() {
+	const todolist = document.querySelector("#todolist");
+	const saveChangesButton = document.querySelector("#saveChangesButton");
+	const tick = document.createElement("div");
+	tick.classList.toggle("tick");
+	todolist.insertBefore(tick, saveChangesButton);
+	setTimeout(function () {
+		tick.style.opacity = "0";
+	}, 100);
 }
 
 // ---
@@ -258,11 +270,13 @@ if (localStorage.getItem("todolistsArray") !== null) {
 
 //Trash button when you hover on the sidebar
 
-//p::before:hover - cursor na pointer i zeby pojawial sie svg okay tick
+//animation on ticking points
 
 //make the sidebar sligtly shorter and add an orange thang that at it's side next to te todolist that is open
 
 //add <hr>s to sidebar and todolist points
+
+//make it not do 50 ticks
 
 //prompt to save changes when switching todolists display
 //and when refreshing page
