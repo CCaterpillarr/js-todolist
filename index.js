@@ -107,11 +107,7 @@ function addNameSidebar(todolistName, todolistIndex) {
 	sidebar.appendChild(sideName);
 	sidebar.appendChild(addTodolistButton);
 	sideName.addEventListener("click", () => {
-		for (let i = 0; i < todolistsArray.length; i++) {
-			if (todolistsArray[i].name === todolistName) {
-				displayTodolist(i);
-			}
-		}
+		displayTodolist(todolistIndex);
 	});
 }
 function displayTodolist(index) {
@@ -141,10 +137,6 @@ function displayTodolist(index) {
 	saveChangesButton.addEventListener("click", () => {
 		saveChanges(index);
 	});
-	//TODO: title and points are editable on click:
-	//    saves changes to the object properties
-	//    when name changed, changes the name on the sidebar
-	//    updateLocalStorage()
 }
 function elementExists(elementId) {
 	var element = document.getElementById(elementId);
