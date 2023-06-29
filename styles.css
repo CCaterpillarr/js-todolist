@@ -19,6 +19,7 @@
 *,
 html {
 	font-size: 20px;
+	word-wrap: break-word;
 }
 
 .hideElement {
@@ -92,7 +93,7 @@ header {
 	top: 0;
 	left: 0;
 }
-#sidebar > p:first-child {
+#sidebar > div:first-child {
 	margin-top: 110px;
 }
 #sidebar > button:first-child {
@@ -107,10 +108,33 @@ header {
 	padding: 18px 20px;
 	font-size: 30px;
 	cursor: pointer;
+}
+
+.sideNameContainer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: var(--dark-gray);
 	transition: var(--background-fade);
 }
-#sidebar p:hover {
+.sideNameContainer:hover {
 	background-color: rgb(126, 126, 126);
+}
+.sideNameContainer p {
+	max-width: 17ch;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.trash {
+	content: url(/img/trash.svg);
+	width: 35px;
+	height: 35px;
+	background-color: rgb(255, 80, 80);
+	border-radius: 10px;
+	margin: 0 20px;
+	cursor: pointer;
 }
 
 /* todolist display */
@@ -154,6 +178,7 @@ header {
 	position: relative;
 	transition: color 0.2s ease-in;
 	padding: 10px;
+	max-width: 60ch;
 }
 .checkedPoint {
 	color: var(--checked);
@@ -187,7 +212,7 @@ header {
 	background: none;
 	border: none;
 	border-bottom: 1px solid black;
-	padding: 10px 40px;
+	padding: 10px 47px;
 	margin: 0 50px 50px 50px;
 }
 #pointInputField:focus {

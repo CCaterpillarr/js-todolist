@@ -93,13 +93,28 @@ function createTodolist(enteredName) {
 function addNameSidebar(todolistName, todolistIndex) {
 	const sidebar = document.querySelector("#sidebar");
 	sidebar.removeChild(addTodolistButton);
+	const sideNameContainer = document.createElement("div");
+	sideNameContainer.classList.toggle("sideNameContainer");
 	const sideName = document.createElement("p");
 	sideName.textContent = todolistName;
 	sideName.setAttribute("id", `todolistIndex${todolistIndex}`);
-	sidebar.appendChild(sideName);
+	sidebar.appendChild(sideNameContainer);
+	sideNameContainer.append(sideName);
 	sidebar.appendChild(addTodolistButton);
 	sideName.addEventListener("click", () => {
 		displayTodolist(todolistIndex);
+	});
+	sideNameContainer.addEventListener("mouseover", () => {
+		/* 		const trash = document.createElement("div");
+		trash.classList.toggle("trash");
+		sideNameContainer.appendChild(trash);
+		trash.addEventListener("click", () => {
+			deleteTodolist(todolistIndex);
+		}); */
+	});
+	sideNameContainer.addEventListener("mouseout", () => {
+		/* 		const trash = document.querySelector(".trash");
+		trash.remove(); */
 	});
 }
 function displayTodolist(index) {
@@ -191,6 +206,12 @@ function checkPoint(todolistIndex, pointIndex) {
 		point.appendChild(crossLine);
 	}
 }
+//prevents adding multiple lines in point input field
+document.addEventListener("keydown", (e) => {
+	if (e.key === "Enter") {
+		event.preventDefault();
+	}
+});
 
 function saveChanges(todolistIndex) {
 	const name = document.querySelector(".title").textContent;
@@ -217,18 +238,18 @@ function showTick() {
 	}, 100);
 }
 
-// ---
-
-//addObjectIndex(arrayWithObject, object, propertyToCheck, indexAlreadyExists):
-//  if object.index property already exists AND indexAlreadyExists !== true:
-//      RETURN console.err(".index property of the object already exists. Index wasn't assigned. If you want to assign it anyway, pass true as 4th argument to this function.)
-//  iterate through elements of the array, for each:
-//    if propertyToCheck in the given element === propertyToCheck in the passed object:  //for example if objectInTheArray.name === object.name
-//      objectIndexProperty = index in the array of the object that matched
-//      return objectIndexProperty  //returns the index of the array that matched
-//    else RETURN console.err("propertyToCheck of passed object didn't match with any object in arrayWithObject. Index wasn't assigned.")
-
-// ---
+/* function deleteTodolist(todolistIndex) {
+		todolistsArray.splice(todolistIndex, 1);
+	const sideName = document.querySelector(`.todolistIndex${todolistIndex}`);
+	sideName.remove();
+	if (elementExists("todolist") === true) {
+		const title = document.querySelector(".title");
+		if (sideName === title) {
+			const todolistDisplay = document.querySelector("#todolist");
+			todolistDisplay.remove();
+		}
+	}
+} */
 
 const removeAllButton = document.querySelector("#removeAllButton");
 removeAllButton.addEventListener("click", () => {
@@ -260,32 +281,3 @@ if (localStorage.getItem("todolistsArray") !== null) {
 }
 
 /* console.log(todolistsArray); */
-
-/* --- TODO --- */
-
-//make the edit block when you click on something to edit look nicer
-//make enter not go to new line
-//disable red misspell underline
-
-//Trash button when you hover on the sidebar
-
-//animation on ticking points
-
-//make the sidebar sligtly shorter and add an orange thang that at it's side next to te todolist that is open
-
-//add <hr>s to sidebar and todolist points
-
-//make it not do 50 ticks
-
-//prompt to save changes when switching todolists display
-//and when refreshing page
-
-//combine saveChanges() and updateLocalStorage() and make new todolists&points be added to todolistsArray via saveChanges()
-
-//make buttons and top panel look nice
-//find some cool font
-
-//if todolist has any points and all are crossed it shows a checkmark next to the title and the names in the sidebar
-
-//settings cog that opens a settings sidebar (with an animation) on the right with the top-most z-index and grays out the rest
-//spin animation when clicked
