@@ -110,7 +110,7 @@ function displayTodolist(index) {
         <h2 class="title">${todolistsArray[index].name}</h2>
         <div class="tasks">
         </div>
-        <button id="addPointButton">+</button>
+        <input type="text" id="pointInputField"></input>
 		<button id="saveChangesButton">Save changes</button>
     `;
 	if (elementExists("todolist") === true) {
@@ -121,15 +121,22 @@ function displayTodolist(index) {
 	let todolistTitle = document.querySelector(".title");
 	todolistTitle.contentEditable = true;
 	addExistingPoints(index);
-	const addPointButton = document.querySelector("#addPointButton");
-	addPointButton.addEventListener("click", () => {
-		pointPrompt(index);
-	});
 	const saveChangesButton = document.querySelector("#saveChangesButton");
 	saveChangesButton.addEventListener("click", () => {
 		saveChanges(index);
 	});
+	todolist.addEventListener("keydown", (e) => {
+		if (e.key === "Enter") {
+			const pointInputField = document.querySelector("#pointInputField");
+			let enteredName = pointInputField.value;
+			if (enteredName !== "") {
+				addPoint(enteredName, index);
+				pointInputField.value = "";
+			}
+		}
+	});
 }
+
 function elementExists(elementId) {
 	var element = document.getElementById(elementId);
 	return element !== null;
@@ -142,30 +149,7 @@ function addExistingPoints(todolistIndex) {
 		}
 	}
 }
-function pointPrompt(todolistIndex) {
-	let modalBox = displayModal();
-	modalBox.innerHTML = `
-    <div>
-        <input type=text id="nameFromModal" name="name" placeholder="Enter point">
-        <div id="modalButtons">
-            <button class="cancel">Cancel</button>
-            <button class="confirm">Add point</button>
-        </div>
-    </div>
-    `;
-	let confirmButton = document.querySelector(".confirm");
-	confirmButton.addEventListener("click", (e) => {
-		e.preventDefault();
-		let nameInputField = document.querySelector("#nameFromModal");
-		let enteredName = nameInputField.value;
-		if (enteredName !== "") {
-			addPoint(enteredName, todolistIndex);
-			removeModal(e);
-		}
-	});
-	let cancelButton = document.querySelector(".cancel");
-	cancelButton.addEventListener("click", removeModal);
-}
+
 function addPoint(enteredName, todolistIndex) {
 	let pointIndex = todolistsArray[todolistIndex].points.length;
 	todolistsArray[todolistIndex].points.push(new Point(enteredName, false, pointIndex));
@@ -197,7 +181,6 @@ function checkPoint(todolistIndex, pointIndex) {
 	if (todolistsArray[todolistIndex].points[pointIndex].isChecked === true) {
 		point = document.querySelector(`#pointIndex${pointIndex}`);
 		checkbox = document.querySelector(`#checkboxIndex${pointIndex}`);
-		console.log(point);
 		point.classList.toggle("checkedPoint");
 		point.contentEditable = false;
 		checkbox.remove();
@@ -263,21 +246,21 @@ if (localStorage.getItem("todolistsArray") !== null) {
 }
 
 /* console.log(todolistsArray); */
+
 /* --- TODO --- */
 
-//zamiast addPointButton, miejsce na wpisanie nowego pointa tak jak Wojtek chcial, i potem przyciskiem dodanie
+//add tick icon on hover
+//tick appears and fades out when you click save changes
+
+//make the edit block when you click on something to edit look nicer
+//make enter not go to new line
+//disable red misspell underline
 
 //Trash button when you hover on the sidebar
 
-//make the edit block when you click on something to edit look nicer
-
 //p::before:hover - cursor na pointer i zeby pojawial sie svg okay tick
 
-//okay tick appears and fades out when you click save changes
-
 //make the sidebar sligtly shorter and add an orange thang that at it's side next to te todolist that is open
-
-//disable red misspell underline
 
 //add <hr>s to sidebar and todolist points
 
